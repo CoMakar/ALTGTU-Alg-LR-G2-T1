@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Equation, Number, Commodore64">
+    <meta name="description" content="Strange set of tools">
+    <meta name="author" content="QMakar">
+    <title>Lab 3 - JS</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../src/script_3.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Лабораторная работа #3</h1>
+
+        <nav>
+            <a href="../pages/lab_2.html">Работа 2</a>
+            <a href="" class="current">Работа 3</a>
+        </nav>
+
+        <hr>
+    </header>
+
+    <div class="grid-container">
+        <div class="grid-item">
+            <h2>Задание 1</h2>
+
+            <div class="input-block">
+                <p class="labeled-input">
+                    <span>A:</span>
+                    <input type="text" id="a-input" placeholder="0" autocomplete="off">
+                </p>
+                <p class="labeled-input">
+                    <span>B:</span>
+                    <input type="text" id="b-input" placeholder="0" autocomplete="off">
+                </p>
+                <p class="labeled-input">
+                    <span>C:</span>
+                    <input type="text" id="c-input" placeholder="0" autocomplete="off">
+                </p>
+            </div>
+            <p>
+                <span>Ответ:</span>
+                <span id="abc-answer-display"></span>
+            </p>
+            <p id="invalid-abc-status" class="hidden error-status">
+                [!] Ввод не может быть интерпретирован как число
+            </p>
+        </div>
+
+        <div class="grid-item">
+            <h2>Задание 1</h2>
+            <div class="input-block">
+                <p class="labeled-input">
+                    <span>X:</span>
+                    <input type="text" id="x-input" placeholder="0" autocomplete="off">
+                </p>
+                <p class="labeled-input">
+                    <span>Y:</span>
+                    <input type="text" id="y-input" placeholder="0" autocomplete="off">
+                </p>
+                <p class="labeled-input">
+                    <span>Z:</span>
+                    <input type="text" id="z-input" placeholder="0" autocomplete="off">
+                </p>
+            </div>
+            <p>
+                <span>Ответ:</span>
+                <span id="xyz-answer-display"></span>
+            </p>
+            <p id="invalid-xyz-status" class="hidden error-status">
+                [!] Ввод не может быть интерпретирован как число
+            </p>
+        </div>
+
+        <div class="grid-item">
+            <h2>Задание 3</h2>
+            <p class="labeled-input">
+                <span>x =</span>
+                <input type="text" id="x3-input" placeholder="0" autocomplete="off">
+            </p>
+            <div class="parameters-block dimmed">
+                <p>
+                    <i>a:</i>
+                    <span id="a3-display"></span>
+                </p>
+                <p>
+                    <i>b:</i>
+                    <span id="b3-display"></span>
+                </p>
+                <p>
+                    <i>f(x) =</i>
+                    <span id="y3-formula-display"></span>
+                </p>
+            </div>
+            <p>
+                <span>Ответ (y) :</span>
+                <span id="y3-answer-display"></span>
+            </p>
+            <p id="invalid-x3-status" class="hidden error-status">
+                [!] Ввод не может быть интерпретирован как число
+            </p>
+        </div>
+
+        <div class="grid-item">
+            <h2>Задание 4</h2>
+            <p class="labeled-input">
+                <span>x =</span>
+                <input type="text" id="x4-input" placeholder="0" autocomplete="off">
+            </p>
+            <div class="parameters-block dimmed">
+                <p>
+                    <i>a:</i>
+                    <span id="a4-display"></span>
+                </p>
+                <p>
+                    <i>b:</i>
+                    <span id="b4-display"></span>
+                </p>
+                <p>
+                    <i>f(x) =</i>
+                    <span id="y4-formula-display"></span>
+                </p>
+            </div>
+            <p>
+                <span>Ответ (y) :</span>
+                <span id="y4-answer-display"></span>
+            </p>
+            <p id="invalid-x4-status" class="hidden error-status">
+                [!] Ввод не может быть интерпретирован как число
+            </p>
+        </div>
+    </div>
+
+    <p id="blinker">█</p>
+
+    <footer>
+        <p>
+            (c) QMakar 2024
+        </p>
+    </footer>
+</body>
+
+</html>

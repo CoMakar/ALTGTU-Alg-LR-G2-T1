@@ -1,0 +1,240 @@
+@font-face {
+    font-family: PixelFont;
+    src: url(../assets/fonts/Commodore\ 64.ttf);
+}
+
+:root {
+    --c64-bg: #50459b;
+    --c64-fg: #887ecb;
+    --c64-cyan: #6abfc6;
+    --c64-purple: #a057a3;
+    --c64-orange: #a1683c;
+    --c64-d-red: #9f4e44;
+    --c64-l-red: #cb7e75;
+    --c64-d-yellow: #6d5412;
+    --c64-l-yellow: #c9d487;
+    --c64-d-green: #5cab5e;
+    --c64-l-green: #9ae29b;
+    --c64-black: #06060d;
+    --c64-gray-1: #626262;
+    --c64-gray-2: #898989;
+    --c64-gray-3: #adadad;
+    --c64-white: #ffffff;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.invisible {
+    opacity: 0 !important;
+}
+
+body {
+    font-family: PixelFont;
+    font-size: 16pt;
+    color: var(--c64-fg);
+    background-color: var(--c64-bg);
+    border: 32px solid;
+    padding: 8px;
+    line-height: 1;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-columns: 100%;
+}
+
+header {
+    margin-bottom: 16px;
+}
+
+footer {
+    border-top: 4px solid var(--c64-fg);
+    margin-top: 16px;
+    min-height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+}
+
+nav a::before {
+    content: "{ ";
+}
+
+nav a::after {
+    content: " }";
+}
+
+hr {
+    border: none;
+    border-top: 4px solid var(--c64-fg);
+    overflow: visible;
+    text-align: center;
+    height: 8px;
+}
+
+hr::after {
+    background-color: var(--c64-bg);
+    color: var(--c64-fg);
+    content: "#";
+    padding: 0 8px;
+    position: relative;
+    top: -12px;
+}
+
+h1 {
+    font-size: 100%;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+h1::before {
+    content: "*** ";
+}
+
+h1::after {
+    content: " ***";
+}
+
+h2 {
+    font-size: 100%;
+    margin-bottom: 16px;
+}
+
+h2::before {
+    content: "> ";
+}
+
+a {
+    text-decoration: none;
+    border-bottom: 4px solid var(--c64-fg);
+}
+
+a:hover {
+    color: var(--c64-cyan);
+    border-color: var(--c64-cyan);
+}
+
+a.current {
+    color: var(--c64-purple);
+    border-color: var(--c64-purple);
+    padding: 0;
+}
+
+input {
+    color: var(--c64-fg);
+    border: none;
+    background: none;
+    outline: none;
+    padding: 0;
+    padding-bottom: 2px;
+    margin: 0;
+    box-shadow: none;
+    border-bottom: 4px solid var(--c64-fg);
+    width: 100%;
+    caret-color: transparent;
+}
+
+input:focus {
+    color: var(--c64-cyan);
+    border-color: var(--c64-cyan);
+}
+
+input::placeholder {
+    color: var(--c64-purple);
+}
+
+input:focus::placeholder {
+    color: var(--c64-cyan);
+    opacity: 50%;
+}
+
+.error-status {
+    color: var(--c64-black);
+    background-color: var(--c64-d-red);
+    text-align: center;
+}
+
+.dimmed {
+    opacity: 0.5;
+}
+
+#blinker {
+    align-self: flex-end;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 32px;
+    justify-content: center;
+    height: fit-content;
+    justify-self: center;
+}
+
+.grid-item {
+    overflow: hidden;
+}
+
+.labeled-input {
+    display: grid;
+    grid-template-columns: auto 65%;
+    column-gap: 16px;
+}
+
+.input-block {
+    margin: 16px 0 16px 0;
+}
+
+.parameters-block {
+    margin: 16px 0 16px 0;
+}
+
+@media (max-width: 1200px) {
+    nav {
+        grid-template-columns: 1fr;
+    }
+
+    .grid-container {
+        grid-template-columns: 1fr;
+        max-width: 600px;
+    }
+}
+
+@media (max-width: 800px) {
+    body {
+        border-width: 16px;
+        font-size: 12pt;
+    }
+
+    header {
+        word-break: break-all;
+    }
+
+    hr::after {
+        top: -9px;
+    }
+
+    h1::before {
+        content: "<";
+    }
+    
+    h1::after {
+        content: ">";
+    }
+
+    .labeled-input {
+        grid-template-columns: 1fr;
+    }
+
+    .labeled-input span {
+        word-break: break-all;
+    }
+}

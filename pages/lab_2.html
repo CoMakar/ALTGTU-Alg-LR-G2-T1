@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Circle, Number, Commodore64">
+    <meta name="description" content="Simple tool to calculate circle parameters">
+    <meta name="author" content="QMakar">
+    <title>Lab 2 - JS</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../src/script_2.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Лабораторная работа #2</h1>
+
+        <nav>
+            <a href="" class="current">Работа 2</a>
+            <a href="../pages/lab_3.html">Работа 3</a>
+        </nav>
+
+        <hr>
+    </header>
+
+    <div class="grid-container">
+        <div class="grid-item">
+            <h2>Задание 1</h2>
+
+            <div class="parameters-block">
+                <p>
+                    <span>Длина:</span>
+                    <span id="length-display">0</span>
+                    <span>у.е</span>
+                </p>
+                <p>
+                    <span>Радиус:</span>
+                    <span id="radius-display">0</span>
+                    <span>у.е</span>
+                </p>
+                <p>
+                    <span>Площадь:</span>
+                    <span id="square-display">0</span>
+                    <span>у.е^2</span>
+                </p>
+            </div>
+            <p class="labeled-input">
+                <span>Длина круга: </span>
+                <input type="text" id="length-input" autocomplete="off" >
+            </p>
+            <p id="invalid-length-status" class="error-status hidden">
+                [!] Введенное значение не подходит в качестве длины круга
+            </p>
+        </div>
+        
+
+        <div class="grid-item">
+            <h2>Задание 2</h2>
+
+            <div class="parameters-block">
+                <p>
+                    <span>Исходное число:</span>
+                    <span id="source-number-display"></span>
+                </p>
+    
+                <p>
+                    <span>Обработанное число:</span>
+                    <span id="computed-number-display"></span>
+                </p>
+            </div>
+            <p class="labeled-input">
+                <span>Трехзначное положительное число:</span>
+                <input type="text" id="some-num-input" autocomplete="off" >
+            </p>
+            <p id="invalid-number-status" class="error-status hidden">
+                [!] Введенное значение не является валидным 3-х значным числом
+            </p>
+        </div>
+    </div>
+
+    <p id="blinker">█</p>
+
+    <footer>
+        <p>
+            (c) QMakar 2024
+        </p>
+    </footer>
+</body>
+
+</html>
