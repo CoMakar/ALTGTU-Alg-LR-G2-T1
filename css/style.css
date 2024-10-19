@@ -1,6 +1,6 @@
 @font-face {
     font-family: PixelFont;
-    src: url(../assets/fonts/Commodore\ 64.ttf);
+    src: url(../assets/fonts/Press\ Start\ 2P\ Regular.ttf);
 }
 
 :root {
@@ -37,7 +37,7 @@ body {
     background-color: var(--c64-bg);
     border: 32px solid;
     padding: 8px;
-    line-height: 1;
+    line-height: 1.5;
     display: grid;
     grid-template-rows: auto auto 1fr auto;
     grid-template-columns: 100%;
@@ -211,7 +211,7 @@ input:focus::placeholder {
 @media (max-width: 800px) {
     body {
         border-width: 16px;
-        font-size: 12pt;
+        font-size: 10pt;
     }
 
     header {
