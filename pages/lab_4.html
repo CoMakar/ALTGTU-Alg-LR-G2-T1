@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Data, Array, Commodore64">
+    <meta name="description" content="Pure chaos">
+    <meta name="author" content="QMakar">
+    <title>Lab 3 - JS</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../src/script_4.js" type="module" async></script>
+</head>
+
+<body>
+    <header>
+        <h1>Лабораторная работа #4</h1>
+
+        <nav>
+            <a href="../pages/lab_2.html">Работа 2</a>
+            <a href="../pages/lab_3.html">Работа 3</a>
+            <a href="" class="current">Работа 4</a>
+        </nav>
+
+        <hr>
+    </header>
+
+    <div class="grid-container">
+        <div class="grid-item">
+            <h2>Задание 1</h2>
+
+            <div class="input-block">
+                <p class="labeled-input">
+                    <span>K:</span>
+                    <input type="text" id="t1-k-input" placeholder="0" autocomplete="off">
+                </p>
+                <p class="labeled-input">
+                    <span>Набор данных:</span>
+                    <textarea id="t1-data-input" placeholder="1 2 ... n" spellcheck="false" autocomplete="off"></textarea>
+                </p>
+                <button id="t1-process-btn">Обработать</button>
+            </div>
+
+            <div class="parameters-block">
+                <p>
+                    <i>Числа:</i>
+                    <span id="t1-numbers-display"></span>
+                </p>
+                <p>
+                    <i>Счетчик:</i>
+                    <span id="t1-counter-display"></span>
+                </p>
+                <p>
+                    <i>Текущее число:</i>
+                    <span id="t1-current-display"></span>
+                </p>
+            </div>
+
+            <p class="look-at-me">
+                <span>Ответ:</span>
+                <span id="t1-answer-display"></span>
+            </p>
+
+            <p id="t1-error-display" class="hidden error">
+                [!] Ввод K не может быть интерпретирован как число
+            </p>
+        </div>
+    </div>
+
+    <p id="blinker">█</p>
+
+    <footer>
+        <p>
+            (c) QMakar 2024
+        </p>
+    </footer>
+</body>
+
+</html>
