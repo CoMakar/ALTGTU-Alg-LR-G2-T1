@@ -79,7 +79,7 @@ class Task_1 extends Task {
             return;
         }
 
-        if (values.slice(0, -2).some((v) => v == 0)) {
+        if (values.slice(0, -1).some((v) => v == 0)) {
             this.show_error(
                 "Последовательность не должна содержать нулевые значения"
             );
@@ -97,12 +97,12 @@ class Task_1 extends Task {
             this.current_display.textContent = value;
             this.counter_display.textContent = counter;
 
-            if (value > k_value) {
-                found = true;
+            if (value == 0) {
                 break;
             }
-
-            if (value == 0) {
+            
+            if (value > k_value) {
+                found = true;
                 break;
             }
 
