@@ -74,8 +74,6 @@ class Task_1 extends Task {
             .split(DATA_SEPARATOR_PATTERN)
             .map((v) => Number(v));
 
-        console.log(values);
-
         if (values.at(-1) != 0) {
             this.show_error("Последовательность должна оканчиваться на 0");
             return;
