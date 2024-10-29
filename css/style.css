@@ -262,7 +262,7 @@ button:disabled {
 
 .labeled-input {
     display: grid;
-    grid-template-columns: auto 65%;
+    grid-template-columns: 4fr 7fr;
     column-gap: 16px;
 }
 
