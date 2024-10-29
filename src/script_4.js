@@ -113,6 +113,56 @@ class Task_1 extends Task {
     }
 }
 
+class Task_2 extends Task {
+    constructor() {
+        super("t2");
+
+        this.n_input = this.find_element(
+            "n",
+            ElementType.Input
+        );
+        this.process_button = this.find_element(
+            "process",
+            ElementType.Button
+        );
+
+        this.current_display = this.find_element(
+            "current",
+            ElementType.Display
+        );
+        this.answer = this.find_element(
+            "answer",
+            ElementType.Display
+        );
+
+        this.process_button.onclick = () => this.button_handler();
+    }
+
+    button_handler() {
+        this.process_button.disabled = true;
+        this.n_input.disabled = true;
+        this.process_data().finally(() => {
+            this.process_button.disabled = false;
+            this.n_input.disabled = false;
+        });
+    }
+
+    async process_data() {
+        this.hide_error();
+        let n_value = Number(this.n_input.value);
+
+        if (isNaN(n_value)) {
+            this.show_error("Некорректное значение K");
+            return;
+        }
+
+        if (n_value <= 0) {
+            this.show_error("N должно быть больше 0");
+            return;
+        }
+    }
+}
+
 window.onload = () => {
     console.info("Window loaded");
 
@@ -125,4 +175,8 @@ window.onload = () => {
     /* --------------------------------- TASK-1 --------------------------------- */
 
     new Task_1();
+
+    /* --------------------------------- TASK-2 --------------------------------- */
+
+    new Task_2();
 };

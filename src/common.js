@@ -22,11 +22,11 @@ export class Task {
     ]);
 
     constructor(id) {
-        if (Task.instance) {
-            return Task.instance;
+        if (this.constructor.instance) {
+            return this.constructor.instance;
         }
 
-        Task.instance = this;
+        this.constructor.instance = this;
         console.log(`Task Controller initialized for id: ${id}`);
 
         this.id = id;
