@@ -97,8 +97,12 @@ class Task_1 extends Task {
             this.current_display.textContent = value;
             this.counter_display.textContent = counter;
 
-            if (value > k_value || value == 0) {
+            if (value > k_value) {
                 found = true;
+                break;
+            }
+
+            if (value == 0) {
                 break;
             }
 
@@ -160,6 +164,20 @@ class Task_2 extends Task {
             this.show_error("N должно быть больше 0");
             return;
         }
+
+        let square_value = 0;
+        const n_formula = (n) => 2 * n - 1;
+
+        for (let c = 1; c <= n_value; c++) {
+            let increment = n_formula(c);
+            square_value += increment;
+
+            this.current_display.textContent = square_value;
+
+            await sleep(500);
+        }
+
+        this.answer.textContent = square_value;
     }
 }
 
