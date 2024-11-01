@@ -168,7 +168,8 @@ input:disabled {
 textarea {
     resize: none;
     color: var(--c64-fg);
-    background-color: rgba(from var(--c64-black) r g b / 33%);
+    background-color: var(--c64-black);
+    opacity: 30%;
     outline: none;
     padding: 4px;
     margin: 0;
@@ -179,7 +180,7 @@ textarea {
 
 textarea:focus {
     color: var(--c64-cyan);
-    background-color: rgba(from var(--c64-black) r g b / 20%);
+    opacity: 66%;
 }
 
 textarea::placeholder {
@@ -187,8 +188,7 @@ textarea::placeholder {
 }
 
 textarea:focus::placeholder {
-    color: var(--c64-cyan);
-    opacity: 50%;
+    opacity: 33%;
 }
 
 textarea:disabled {
