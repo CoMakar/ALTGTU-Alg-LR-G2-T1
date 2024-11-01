@@ -40,10 +40,10 @@ class Task_1 extends Task {
             ElementType.Display
         );
 
-        this.process_button.onclick = () => this.button_handler();
+        this.process_button.onclick = () => this.handle_button();
     }
 
-    button_handler() {
+    handle_button() {
         this.process_button.disabled = true;
         this.k_input.disabled = true;
         this.data_input.disabled = true;
@@ -139,10 +139,10 @@ class Task_2 extends Task {
             ElementType.Display
         );
 
-        this.process_button.onclick = () => this.button_handler();
+        this.process_button.onclick = () => this.handle_button();
     }
 
-    button_handler() {
+    handle_button() {
         this.process_button.disabled = true;
         this.n_input.disabled = true;
         this.process_data().finally(() => {
@@ -166,10 +166,10 @@ class Task_2 extends Task {
         }
 
         let square_value = 0;
-        const n_formula = (n) => 2 * n - 1;
+        const calc_ni = (n) => 2 * n - 1;
 
         for (let c = 1; c <= n_value; c++) {
-            let increment = n_formula(c);
+            let increment = calc_ni(c);
             square_value += increment;
 
             this.current_display.textContent = square_value;

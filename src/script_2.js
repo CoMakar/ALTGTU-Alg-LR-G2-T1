@@ -2,7 +2,6 @@
 
 const PI = 3.14;
 
-
 window.onload = () => {
     console.info("Window loaded");
 

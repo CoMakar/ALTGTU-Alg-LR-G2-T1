@@ -134,17 +134,17 @@ class Task_3 {
 
         switch (true) {
             case x <= -1:
-                result = this.f1(x);
+                result = this.calc_f1(x);
                 y = result.val;
                 formula = result.formula;
                 break;
             case x > 5:
-                result = this.f2(x);
+                result = this.calc_f2(x);
                 y = result.val;
                 formula = result.formula;
                 break;
             case -1 < x <= 5:
-                result = this.f3(x);
+                result = this.calc_f3(x);
                 y = result.val;
                 formula = result.formula;
                 break;
@@ -154,18 +154,18 @@ class Task_3 {
         this.formula.textContent = formula;
     }
 
-    f1(x) {
+    calc_f1(x) {
         return { val: Math.pow(Math.E, Math.sin(x)), formula: `e^(sin ${x})` };
     }
 
-    f2(x) {
+    calc_f2(x) {
         return {
             val: Math.pow(Math.log(Math.abs(this.b * x)), 2),
             formula: `ln^2|${this.b} * ${x}|`,
         };
     }
 
-    f3(x) {
+    calc_f3(x) {
         return {
             val: Math.sqrt(1 + Math.pow(this.a * x, 2)),
             formula: `sqrt(1+(${this.a} * ${x})^2)`,
@@ -217,17 +217,17 @@ class Task_4 {
 
         switch (x) {
             case -2:
-                result = this.f1(x);
+                result = this.calc_f1(x);
                 y = result.val;
                 formula = result.formula;
                 break;
             case 7:
-                result = this.f2(x);
+                result = this.calc_f2(x);
                 y = result.val;
                 formula = result.formula;
                 break;
             case 4:
-                result = this.f3(x);
+                result = this.calc_f3(x);
                 y = result.val;
                 formula = result.formula;
                 break;
@@ -237,18 +237,18 @@ class Task_4 {
         this.formula.textContent = formula ?? "Undefined";
     }
 
-    f1(x) {
+    calc_f1(x) {
         return { val: Math.pow(Math.E, Math.sin(x)), formula: `e^(sin ${x})` };
     }
 
-    f2(x) {
+    calc_f2(x) {
         return {
             val: Math.pow(Math.log(Math.abs(this.b * x)), 2),
             formula: `ln^2|${this.b} * ${x}|`,
         };
     }
 
-    f3(x) {
+    calc_f3(x) {
         return {
             val: Math.sqrt(1 + Math.pow(this.a * x, 2)),
             formula: `sqrt(1+(${this.a} * ${x})^2)`,
