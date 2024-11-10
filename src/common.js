@@ -5,20 +5,24 @@ export const ElementType = {
     Display: "Display",
     Button: "Button",
     Status: "Status",
+    Image: "Image",
 };
 
 export class Task {
     error_prefix = "[!]";
+
     input_postfix = "input";
     display_postfix = "display";
     button_postfix = "btn";
     status_postfix = "status";
+    image_postfix = "img";
 
     type_mapping = new Map([
         [ElementType.Input, this.input_postfix],
         [ElementType.Display, this.display_postfix],
         [ElementType.Button, this.button_postfix],
         [ElementType.Status, this.status_postfix],
+        [ElementType.Image, this.image_postfix],
     ]);
 
     constructor(id) {

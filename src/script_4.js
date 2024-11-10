@@ -213,10 +213,10 @@ class Task_2 extends Task {
 window.onload = () => {
     console.info("Window loaded");
 
-    let blink = document.getElementById("blinker");
+    let blinker = document.getElementById("blinker");
 
     setInterval(() => {
-        blink.classList.toggle("invisible");
+        blinker.classList.toggle("invisible");
     }, 1000);
 
     /* --------------------------------- TASK-1 --------------------------------- */

@@ -5,10 +5,10 @@ const PI = 3.14;
 window.onload = () => {
     console.info("Window loaded");
 
-    let blink = document.getElementById("blinker");
+    let blinker = document.getElementById("blinker");
 
     setInterval(() => { 
-        blink.classList.toggle("invisible");
+        blinker.classList.toggle("invisible");
     }, 1000)
 
     // query the DOM elements

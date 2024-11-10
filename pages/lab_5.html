@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Quest, Game, Commodore64">
+    <meta name="description" content="Nothing">
+    <meta name="author" content="QMakar">
+    <title>ALTGTU - Alg - Lab 4</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/bem.css">
+    <script src="../src/script_5.js" type="module" async></script>
+</head>
+
+<body>
+    <header class="header">
+        <h1 class="header__name">Лабораторная работа #5</h1>
+
+        <nav class="nav">
+            <a class="nav__item" href="../pages/lab_2.html">Работа 2</a>
+            <a class="nav__item" href="../pages/lab_3.html">Работа 3</a>
+            <a class="nav__item" href="../pages/lab_4.html">Работа 4</a>
+            <a class="nav__item nav__item_current" href="">Работа 5</a>
+        </nav>
+
+        <hr class="h-ruler">
+    </header>
+
+    <main class="main">
+        <div class="main__task main__task_span-col-2">
+            <h2 class="task__name">Текстовый квест</h2>
+
+            <div class="img-wrapper img-wrapper_centered img-wrapper_presentation">
+                <img class="img-wrapper__img img-wrapper__img_game-stage" id="game-current-stage-img" src="/assets/images/loading.png">
+            </div>
+
+            <div class="interaction-form">
+                <textarea class="text-area text-area_game-log" id="game-log-display" spellcheck="false" autocomplete="off" readonly></textarea>
+                
+                <p class="labeled-input labeled-input_vertical">
+                    <span class="labeled-input__label">Введите команду:</span>
+                    <input class="labeled-input__text-input" type="text" id="game-command-input" autocomplete="off">
+                </p>
+
+            </div>
+
+            <p id="game-error-display" class="hidden error">
+
+            </p>
+        </div>
+    </main>
+
+    <p id="blinker" class="blinker">█</p>
+
+    <footer class="footer">
+        <p class="footer__copyright">
+            (c) QMakar 2024
+        </p>
+    </footer>
+</body>
+
+</html>

@@ -43,37 +43,71 @@ body {
     grid-template-columns: 100%;
     scrollbar-width: auto;
     scrollbar-color: var(--c64-l-yellow) var(--c64-orange);
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 8px;
 }
 
-header {
-    margin-bottom: 16px;
+.main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 32px;
+    justify-content: center;
+    height: fit-content;
+    justify-self: center;
+    width: 100%;
+    max-width: 1200px;
 }
 
-footer {
+.main__task {
+    overflow: hidden;
+}
+
+.main__task_span-col-2 {
+    grid-column: span 2;
+}
+
+.footer {
     border-top: 4px solid var(--c64-fg);
-    margin-top: 16px;
     min-height: 64px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-nav {
+.nav {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     align-items: center;
     justify-items: center;
 }
 
-nav a::before {
+.nav__item {
+    color: var(--c64-fg);
+    text-decoration: none;
+    border-bottom: 4px solid var(--c64-fg);
+}
+
+.nav__item::before {
     content: "{ ";
 }
 
-nav a::after {
+.nav__item::after {
     content: " }";
 }
 
-hr {
+.nav__item:hover {
+    color: var(--c64-cyan);
+    border-color: var(--c64-cyan);
+}
+
+.nav__item_current {
+    color: var(--c64-purple);
+    border-color: var(--c64-purple);
+    padding: 0;
+}
+
+.h-ruler {
     border: none;
     border-top: 4px solid var(--c64-fg);
     overflow: visible;
@@ -81,7 +115,7 @@ hr {
     height: 8px;
 }
 
-hr::after {
+.h-ruler::after {
     background-color: var(--c64-bg);
     color: var(--c64-fg);
     content: "#";
@@ -90,47 +124,45 @@ hr::after {
     top: -12px;
 }
 
-h1 {
+.header__name {
     font-size: 100%;
     margin-top: 16px;
     margin-bottom: 16px;
     text-align: center;
 }
 
-h1::before {
+.header__name::before {
     content: "*** ";
 }
 
-h1::after {
+.header__name::after {
     content: " ***";
 }
 
-h2 {
+.task__name {
     font-size: 100%;
     margin-bottom: 16px;
 }
 
-h2::before {
+.task__name::before {
     content: "> ";
 }
 
-a {
-    text-decoration: none;
-    border-bottom: 4px solid var(--c64-fg);
+.labeled-input {
+    display: grid;
+    grid-template-columns: minmax(auto, 1fr) 3fr;
+    column-gap: 16px;
 }
 
-a:hover {
-    color: var(--c64-cyan);
-    border-color: var(--c64-cyan);
+.labeled-input_vertical {
+    grid-template-columns: 1fr;
 }
 
-a.current {
-    color: var(--c64-purple);
-    border-color: var(--c64-purple);
-    padding: 0;
+.labeled-input__label_break-all {
+    word-break: break-all;
 }
 
-input {
+.labeled-input__text-input {
     color: var(--c64-fg);
     border: none;
     background: none;
@@ -144,28 +176,28 @@ input {
     caret-color: var(--c64-cyan);
 }
 
-input:focus {
+.labeled-input__text-input:focus {
     color: var(--c64-cyan);
     border-color: var(--c64-cyan);
 }
 
-input::placeholder {
+.labeled-input__text-input::placeholder {
     color: var(--c64-purple);
 }
 
-input:focus::placeholder {
+.labeled-input__text-input:focus::placeholder {
     color: var(--c64-cyan);
     opacity: 50%;
 }
 
-input:disabled {
+.labeled-input__text-input:disabled {
     color: var(--c64-gray-1);
     background-color: var(--c64-black);
     border-color: var(--c64-gray-1);
     cursor: default;
 }
 
-textarea {
+.text-area {
     resize: none;
     color: var(--c64-fg);
     background-color: var(--c64-black);
@@ -178,26 +210,41 @@ textarea {
     caret-color: var(--c64-cyan);
 }
 
-textarea:focus {
+.text-area_game-log {
+    font-size: 8pt;
+    height: 200px;
+}
+
+.text-area:focus {
     color: var(--c64-cyan);
     opacity: 66%;
 }
 
-textarea::placeholder {
+.text-area::placeholder {
     color: var(--c64-bg);
 }
 
-textarea:focus::placeholder {
+.text-area:focus::placeholder {
     opacity: 33%;
 }
 
-textarea:disabled {
+.text-area:disabled {
     color: var(--c64-gray-1);
     background-color: var(--c64-black);
     cursor: default;
 }
 
-button {
+.text-area:read-only {
+    color: var(--c64-white);
+    background-color: var(--c64-black);
+    opacity: 100%;
+}
+
+.interaction-form * {
+    margin: 2px 0 2px 0;
+}
+
+.submit-btn {
     background-color: transparent;
     color: var(--c64-fg);
     border: 4px solid var(--c64-fg);
@@ -205,20 +252,20 @@ button {
     padding: 8px;
 }
 
-button:hover {
+.submit-btn:hover {
     color: var(--c64-bg);
     background-color: var(--c64-cyan);
     border-color: var(--c64-cyan);
     cursor: pointer;
 }
 
-button:active {
+.submit-btn:active {
     color: var(--c64-l-yellow);
     background-color: var(--c64-orange);
     border-color: var(--c64-orange);
 }
 
-button:disabled {
+.submit-btn:disabled {
     color: var(--c64-gray-1);
     background-color: var(--c64-black);
     border-color: var(--c64-black);
@@ -232,58 +279,50 @@ button:disabled {
     width: 100%;
 }
 
-.look-at-me {
+.parameters {
+    margin: 16px 0 16px 0;
+}
+
+.parameters_dimmed {
+    opacity: 0.5;
+}
+
+.answer {
     color: var(--c64-l-yellow);
     font-weight: bold;
 }
 
-.dimmed {
-    opacity: 0.5;
-}
-
-#blinker {
+.blinker {
     align-self: flex-end;
 }
 
-.grid-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px 32px;
-    justify-content: center;
-    height: fit-content;
-    justify-self: center;
+.img-wrapper {
+    display: flex;
     width: 100%;
-    max-width: 1200px;
 }
 
-.grid-item {
-    overflow: hidden;
+.img-wrapper_centered {
+    justify-content: center;
 }
 
-.labeled-input {
-    display: grid;
-    grid-template-columns: 4fr 7fr;
-    column-gap: 16px;
+.img-wrapper_presentation {
+    background-color: var(--c64-black);
 }
 
-.input-block {
-    margin: 16px 0 16px 0;
+.img-wrapper__img {
+    image-rendering: pixelated;
 }
 
-.input-block * {
-    margin: 2px 0 2px 0;
-}
-
-.parameters-block {
-    margin: 16px 0 16px 0;
+.img-wrapper__img_game-stage {
+    height: 400px;
 }
 
 @media (max-width: 1200px) {
-    nav {
+    .nav {
         grid-template-columns: 1fr;
     }
 
-    .grid-container {
+    .main {
         grid-template-columns: 1fr;
         max-width: 600px;
     }
@@ -295,19 +334,19 @@ button:disabled {
         font-size: 10pt;
     }
 
-    header {
+    .header {
         word-break: break-all;
     }
 
-    hr::after {
+    .h-ruler::after {
         top: -9px;
     }
 
-    h1::before {
+    .header__name::before {
         content: "<";
     }
 
-    h1::after {
+    .header__name::after {
         content: ">";
     }
 
@@ -315,7 +354,7 @@ button:disabled {
         grid-template-columns: 1fr;
     }
 
-    .labeled-input span {
+    .labeled-input__label {
         word-break: break-all;
     }
 }
