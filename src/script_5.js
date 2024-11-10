@@ -1,7 +1,6 @@
 "use strict";
 
 import { Task, ElementType } from "./common.js";
-import { sleep } from "./utils.js";
 
 const IMAGE_PATH = "../assets/images"
 
@@ -137,7 +136,7 @@ class Game extends Task {
         }],
         [7, {
             id: 7,
-            description: "При исследовании нового туннеля дворфы находят огромные залежи блестящей породы. Это колчедан, содержащий медь и железо.",
+            description: "При исследовании пещер дворфы находят огромные залежи блестящей породы. Это колчедан, содержащий медь и железо.",
             choices: [
                 {
                     text: "Начать добычу колчедана и организовать его переработку.",
@@ -152,7 +151,7 @@ class Game extends Task {
                     effects: { good: +1, neutral: -1, bad: +3 }
                 },
                 {
-                    text: "Проигнорировать найденную жилу продолжить мирскую деятельность",
+                    text: "Проигнорировать найденную жилу и продолжить мирскую деятельность",
                     effects: { good: -1, neutral: +1, bad: +1 }
                 }
             ]
@@ -277,7 +276,7 @@ class Game extends Task {
         let choice = stage.choices[choice_id];
 
         if (choice === undefined) {
-            this.print_error("Такого варианта ответа нет.")
+            this.print_error("Такого варианта ответа нет.");
             this.print_choices(this.stage_id);
             return;
         }
@@ -306,7 +305,7 @@ class Game extends Task {
     }
 
     print_legend(stage_id) {
-        let legend = this.stages.get(stage_id).description
+        let legend = this.stages.get(stage_id).description;
         this.print_log(`* ${legend} \n`);
     }
 
