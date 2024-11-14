@@ -5,249 +5,326 @@ import { Task, ElementType } from "./common.js";
 const IMAGE_PATH = "../assets/images"
 
 class Game extends Task {
-    stage_images = new Map([
-        [1, Game.get_image_path("stage_1")],
-        [2, Game.get_image_path("stage_2")],
-        [3, Game.get_image_path("stage_3")],
-        [4, Game.get_image_path("stage_4")],
-        [5, Game.get_image_path("stage_5")],
-        [6, Game.get_image_path("stage_6")],
-        [7, Game.get_image_path("stage_7")],
-        [8, Game.get_image_path("stage_8")],
-        [9, Game.get_image_path("stage_9")],
-        [10, Game.get_image_path("stage_10")],
-    ]);
-
-    final_images = new Map([
-        ["good", Game.get_image_path("final_good")],
-        ["bad", Game.get_image_path("final_bad")],
-        ["neutral", Game.get_image_path("final_neutral")],
-    ]);
-
     stages = new Map([
         [1, {
             id: 1,
+            image: Game.get_image_path("stage_1"),
             description: "Дворфы отправляются исследовать новые земли, чтобы основать крепость. Они находят подходящее место: это просторная долина у подножия горы с речушкой, текущей неподалеку.",
             choices: [
                 {
                     text: "Основать крепость у подножия горы, начать рыть туннели.",
-                    effects: { bad: +1, good: +2 }
+                    weights_deviation: { bad: +1, good: +2 },
+                    next_stage_id: 2
                 },
                 {
                     text: "Построить укрепленный лагерь на поверхности, на случай, если придется защищаться.",
-                    effects: { neutral: +1 }
+                    weights_deviation: { neutral: +1 },
+                    next_stage_id: 2
                 },
                 {
-                    text: "Искать более безопасное место, двигаясь дальше по долине.",
-                    effects: { good: +1 }
+                    text: "Выбрать место безопаснее в глубине долины.",
+                    weights_deviation: { good: +1 },
+                    next_stage_id: 2
                 }
             ]
         }],
         [2, {
             id: 2,
-            description: "В крепости открывают несколько небольших шахт для добычи камня и руды. Им также требуется еда и древесина.",
+            image: Game.get_image_path("stage_2"),
+            description: "В крепости открывают несколько небольших шахт для добычи камня и руды. Также требуется еда и древесина и больше металлов.",
             choices: [
                 {
                     text: "Открыть шахту поближе к реке, чтобы добывать руду.",
-                    effects: { bad: +1, good: +2 }
+                    weights_deviation: { bad: +1, good: +2 },
+                    next_stage_id: 3
                 },
                 {
                     text: "Охотиться на местную дичь, добывая еду для зимы.",
-                    effects: { neutral: +1, good: +1 }
+                    weights_deviation: { neutral: +3, good: +1 },
+                    next_stage_id: 3
                 },
                 {
                     text: "Начать собирать толстошлемник для приготовления вина.",
-                    effects: { neutral: +1 }
+                    weights_deviation: { neutral: +5, bad: +2 },
+                    next_stage_id: 3
                 }
             ]
         }],
         [3, {
             id: 3,
+            image: Game.get_image_path("stage_3"),
             description: "Проходит время, и на крепость начинают нападать дикие звери — волки и гигантские крысы.",
             choices: [
                 {
                     text: "Построить защитные ловушки вокруг входа.",
-                    effects: { bad: +1, neutral: +1 }
+                    weights_deviation: { bad: +2, neutral: +1 },
+                    next_stage_id: 4
                 },
                 {
                     text: "Назначить отряд охранников из дворфов.",
-                    effects: { neutral: +1, good: +1, bad: -1 }
-
+                    weights_deviation: { neutral: +1, good: +1, bad: -1 },
+                    next_stage_id: 4
                 },
                 {
                     text: "Игнорировать угрозу, надеясь, что звери не будут беспокоить слишком часто.",
-                    effects: { bad: +1 }
+                    weights_deviation: { bad: +5 },
+                    next_stage_id: 4
                 }
             ]
         }],
         [4, {
             id: 4,
+            image: Game.get_image_path("stage_4"),
             description: "В крепости организовывают кузницу и мастерскую. Дворфы начинают изготавливать оружие, инструменты и предметы для торговли.",
             choices: [
                 {
                     text: "Сосредоточиться на кузнечном деле и изготовлении оружия.",
-                    effects: { bad: -1, neutral: -1, good: +1 },
+                    weights_deviation: { bad: -1, neutral: -1, good: +1 },
+                    affects(events) { events.heavy_weapons = true },
+                    next_stage_id: 5
                 },
                 {
                     text: "Развивать резьбу по камню и создавать украшения.",
-                    effects: { neutral: +1 },
+                    weights_deviation: { neutral: +1 },
+                    next_stage_id: 5
                 },
                 {
                     text: "Увеличить запасы алкоголя, наладив производство вина из толстошлемника.",
-                    effects: { neutral: +1, bad: +1 }
+                    weights_deviation: { neutral: +2, bad: +4 },
+                    next_stage_id: 5
                 },
             ]
         }],
         [5, {
             id: 5,
+            image: Game.get_image_path("stage_5"),
             description: "На горизонте появляются караваны из соседних поселений. Дворфы могут наладить торговые связи и обмениваться товарами.",
             choices: [
                 {
                     text: "Продавать только излишки, сохраняя запасы на случай нужды.",
-                    effects: { good: +1, neutral: +1, bad: -1 }
+                    weights_deviation: { good: +1, neutral: +1, bad: -1 },
+                    affects(events) { events.trading = true },
+                    next_stage_id: 6
                 },
                 {
                     text: "Наладить постоянный обмен ресурсами с соседними племенами.",
-                    effects: { neutral: +1, bad: +1 }
+                    weights_deviation: { neutral: +1, bad: +1 },
+                    affects(events) { events.trading = true },
+                    next_stage_id: 6
                 },
                 {
                     text: "Избегать торговли и сохранять свои ресурсы при себе.",
-                    effects: { good: -1, neutral: +1, bad: -1 }
+                    weights_deviation: { good: -1, neutral: +1, bad: -1 },
+                    next_stage_id: 6
                 }
             ]
         }],
         [6, {
             id: 6,
+            image: Game.get_image_path("stage_6"),
             description: "Во время раскопок дворфы находят древний, забытый туннель, ведущий вглубь горы.",
             choices: [
                 {
                     text: "Исследовать туннель с отрядом охранников.",
-                    effects: { good: +1, neutral: -1, bad: +1 }
+                    weights_deviation: { good: +1, neutral: -2, bad: +2 },
+                    next_stage_id: 7
                 },
                 {
                     text: "Запечатать туннель и забыть о нем.",
-                    effects: { neutral: +1, bad: -2, good: -2 },
+                    weights_deviation: { neutral: +1, bad: -2, good: -2 },
+                    next_stage_id: 8
                 },
                 {
-                    text: "Исследовать туннель только с опытными дворфами, чтобы не подвергать лишних опасности.",
-                    effects: { good: +1, bad: +1 }
+                    text: "Исследовать туннель только с опытными дворфами, чтобы снизить риски.",
+                    weights_deviation: { good: +1, bad: +1 },
+                    next_stage_id: 7
                 }
             ]
         }],
         [7, {
             id: 7,
-            description: "При исследовании пещер дворфы находят огромные залежи блестящей породы. Это колчедан, содержащий медь и железо.",
+            image: Game.get_image_path("stage_7"),
+            description: "При исследовании туннеля дворфы находят огромные залежи блестящей породы. Это колчедан, содержащий медь и железо.",
             choices: [
                 {
                     text: "Начать добычу колчедана и организовать его переработку.",
-                    effects: { good: +1, neutral: -1, bad: +1 }
+                    weights_deviation: { good: +1, neutral: -1, bad: +1 },
+                    affects(events) { events.pyrite_found = true },
+                    next_stage_id: 8
                 },
                 {
                     text: "Вернуться с новостью, чтобы старейшины лучше обдумали решение.",
-                    effects: { good: +2, neutral: -1, bad: +1 }
+                    weights_deviation: { good: +2, neutral: -1, bad: +1 },
+                    affects(events) { events.pyrite_found = true },
+                    next_stage_id: 8
                 },
                 {
                     text: "Добывать руду, но скрывать это от остальных до подтверждения богатства залежей.",
-                    effects: { good: +1, neutral: -1, bad: +3 }
+                    weights_deviation: { good: +1, neutral: -1, bad: +3 },
+                    affects(events) { events.pyrite_found = true },
+                    next_stage_id: 8
                 },
                 {
                     text: "Проигнорировать найденную жилу и продолжить мирскую деятельность",
-                    effects: { good: -1, neutral: +1, bad: +1 }
+                    weights_deviation: { good: -1, neutral: +1, bad: +1 },
+                    next_stage_id: 8
                 }
             ]
         }],
         [8, {
             id: 8,
-            description: "По крепости начинают ходить слухи о странных звуках и тенях в туннелях.",
+            image: Game.get_image_path("stage_8"),
+            description: "По крепости начинают ходить слухи о странных звуках и тенях в шахтах.",
             choices: [
                 {
                     text: "Усилить патрулирование и подготовить оружие.",
-                    effects: { good: +1, neutral: -1, bad: -1 },
+                    condition(events) { return events.heavy_weapons },
+                    weights_deviation: { good: +1, neutral: -1, bad: -1 },
+                    next_stage_id: 9
                 },
                 {
                     text: "Игнорировать слухи, успокоив дворфов.",
-                    effects: { good: -1, bad: +1 },
+                    weights_deviation: { good: -1, bad: +1 },
+                    next_stage_id: 9
                 },
                 {
                     text: "Исследовать, пытаясь найти источник звуков.",
-                    effects: { good: +1, neutral: -1, bad: +2 }
+                    weights_deviation: { good: +1, neutral: -1, bad: +2 },
+                    next_stage_id: 9
                 }
             ]
         }],
         [9, {
             id: 9,
-            description: "Дворфы сталкиваются с таинственным существом в глубинах крепости. Это может быть забытое чудовище.",
+            image: Game.get_image_path("stage_9"),
+            description: "Дворфы сталкиваются с таинственным существом в глубинах крепости. Скорее всего это забытое порождение.",
             choices: [
                 {
-                    text: "Атаковать чудовище с мощным вооружением.",
-                    effects: { good: -1, neutral: +1, bad: -2 },
+                    text: "Атаковать порождение мощным вооружением.",
+                    condition(events) { return events.heavy_weapons },
+                    weights_deviation: { good: +1, neutral: +1, bad: -2 },
+                    next_stage_id: 10
                 },
                 {
-                    text: "Закрыть старый путь и прокопать новый, сохранив риск встречи с этим.",
-                    effects: { good: +1, bad: -1 }
+                    text: "Заблокировать сектор крепости, в котором, вероятно, оно обитает.",
+                    weights_deviation: { good: -1, neutral: -1, bad: +1 },
+                    next_stage_id: 10
                 },
                 {
-                    text: "Оставить его в покое, надеясь, что оно уйдет.",
-                    effects: { good: +1, bad: +1, neutral: -1 }
+                    text: "Оставить порождение в покое, надеясь, что оно уйдет.",
+                    weights_deviation: { bad: +2, neutral: -1 },
+                    next_stage_id: 10
                 }
             ]
         }],
         [10, {
             id: 10,
+            image: Game.get_image_path("stage_10"),
             description: "Лидеры экспедиции решают провести совещание, чтобы решить, что делать дальше с накопившимися проблемами.",
             choices: [
                 {
-                    text: "Продолжать добычу колчедана, рискуя столкновением с чудовищем.",
-                    effects: { good: +2, neutral: -2, bad: +3 },
-                    is_final: true
+                    text: "Продолжать добычу колчедана, рискуя столкновением с забытым порождением.",
+                    condition(events) { return events.heavy_weapons && events.pyrite_found },
+                    weights_deviation: { good: +2, neutral: -2, bad: +3 },
+                    is_ending: true
                 },
                 {
                     text: "Закрыть туннели и заняться обычной жизнью, избегая рискованных предприятий.",
-                    effects: { good: -5, neutral: +3, bad: -5 },
-                    is_final: true
+                    condition(events) { return events.pyrite_found },
+                    weights_deviation: { good: -5, neutral: +3, bad: -5 },
+                    is_ending: true
                 },
                 {
                     text: "Прекратить добычу и перейти к укреплению обороны, полагаясь на торги.",
-                    effects: { good: -5, neutral: -1, bad: -3 },
-                    is_final: true
+                    condition(events) { return events.trading && events.pyrite_found },
+                    weights_deviation: { good: +4, neutral: -1, bad: -3 },
+                    is_ending: true
+                },
+                {
+                    text: "Покинуть крепость с остатками экспедиции и отправиться на поиски лучшей жизни.",
+                    condition(events) { return !events.pyrite_found && !events.trading},
+                    weights_deviation: { good: -999, neutral: -999, bad: +999 },
+                    affects(events) { events.abandoned = true },
+                    is_ending: true
+                },
+                {
+                    text: "Продолжить развитие в попытках добиться лучшей жизни.",
+                    weights_deviation: { good: -3, neutral: +1, bad: +1 },
+                    is_ending: true
+                },
+                {
+                    text: "Снарядить всех дворфов подручными средствами, заблокировать крепость, лучше крепость падет, но мы не можем позволить неведомой твари вырваться!",
+                    weights_deviation: { good: -5, neutral: -8, bad: +5 },
+                    is_ending: true
                 }
             ]
         }]
     ]);
 
     endings = new Map([
-        ["good", {
+        ["good_pyrite", {
+            image: Game.get_image_path("ending_good_pyrite"),
             description: "Хороший финал: Добыча колчедана процветает! Крепость становится богатой и известной. Оружие и боевая сила также перестают быть проблемой. Вскоре чудовищное порождение былых времен было уничтожено. В финальной битве особо отразился дворф Усхир Дуким, который стал новым лидером крепости."
         }],
-        ["bad", {
-            description: "Плохой финал: Забытое чудовище не удается сдержать, оно выбирается в основную крепость, уничтожая все. Крепость представляет собой нагромождения камней. Из разрушенных бочек течет остаток вина из толстошлемника. Вечером, мидии на ужин так никто и не подал. Теперь это место лишь памятник былым достижениям..."
+        ["good_trading", {
+            image: Game.get_image_path("ending_good_trading"),
+            description: "Хороший финал: Торговля процветает! Крепость становится центром торговли и привлекает все больше внимания. Вскоре наемники расправляются с забытым порождением темных времен. Экономический успех настолько велик, что крепость становится столицей цивилизации дворфов."
+        }],
+        ["bad_monster", {
+            image: Game.get_image_path("ending_bad_monster"),
+            description: "Плохой финал: Забытое чудовище не удается сдержать, оно выбирается в основную крепость, уничтожая все. Крепость представляет собой нагромождения камней. Из разрушенных бочек течет остаток вина из толстошлемника. Вечером, мидии на ужин так никто и не подал. Теперь это место лишь памятник былым достижениям. [Chaos reigns]..."
+        }],
+        ["bad_abandoned", {
+            image: Game.get_image_path("ending_bad_abandoned"),
+            description: "Плохой финал: Никто не видит перспектив жизни и процветания в этом проклятом месте. Возможно здесь и есть богатства, но их уже не найти горстке храбрых дворфов. Пусть эта черная земля и дальше хранит свои секреты. Древние Боги видимо прокляли все, что связано с этим местом, всем будет лучше если его покинуть..."
         }],
         ["neutral", {
-            description: "Нейтральный финал: Крепость ведет простую, размеренную жизнь, где каждый наслаждается вином из толстошлемника. Забытое чудовище, кажется, стало забытым настолько, что больше не тревожило никого. Колчедан и богатства не сыскали популярности среди дворфов. Однако в крепости становится все больше и больше кошек. Это ведь не приведет ни к чему плохому, верно?"
+            image: Game.get_image_path("ending_neutral"),
+            description: "Нейтральный финал: Крепость ведет простую, размеренную жизнь, где каждый наслаждается вином из толстошлемника. Забытое чудовище, кажется, стало забытым настолько, что больше не тревожило никого. Ни колчедана, ни богатства лишь вино и танцы.Однако в крепости становится все больше и больше кошек. Это ведь не приведет ни к чему плохому, верно?"
         }]
     ]);
 
     constructor() {
         super("game");
 
-        this.stage_id = 1;
         this.endings_weights = {
             good: 0,
             bad: 0,
             neutral: 0,
         };
 
+        this.events = {
+            pyrite_found: false,
+            heavy_weapons: false,
+            trading: false,
+            abandoned: false,
+        };
+        
         this.current_stage_img = this.find_element("current-stage", ElementType.Image);
         this.log_display = this.find_element("log", ElementType.Display);
         this.command_input = this.find_element("command", ElementType.Input);
+        this.submit_btn = this.find_element("submit", ElementType.Button);
 
-        this.set_stage(this.stage_id);
+        this.command_input.onkeydown = this.submit_btn.onclick = (event) => this.handle_command_input(event);
 
-        this.command_input.onkeydown = (event) => this.handle_command_input(event);
+        
+        this.current_stage = this.get_stage(1);
+        this.display_stage(this.current_stage, this.current_choices);
+    }
+
+    get current_choices() {
+        let choices = this.current_stage.choices.filter(choice => {
+            return choice.condition === undefined ? true : choice.condition(this.events)
+        });
+        return choices;
+    }
+
+    get_stage(stage_id) {
+        return this.stages.get(stage_id);
     }
 
     handle_command_input(event) {
-        if (event.key != "Enter") {
+        if (event.type == "keydown" && event.key != "Enter") {
             return;
         }
 
@@ -262,7 +339,7 @@ class Game extends Task {
 
         if (isNaN(choice_id)) {
             this.print_error("Введите вариант ответа.");
-            this.print_choices(this.stage_id);
+            this.print_choices(this.current_choices);
             return;
         }
 
@@ -272,56 +349,74 @@ class Game extends Task {
     }
 
     handle_choice(choice_id) {
-        let stage = this.stages.get(this.stage_id);
-        let choice = stage.choices[choice_id];
+        let choice = this.current_stage.choices[choice_id];
 
         if (choice === undefined) {
             this.print_error("Такого варианта ответа нет.");
-            this.print_choices(this.stage_id);
+            this.print_choices(this.current_stage.choices);
             return;
         }
 
-        for (let effect in choice.effects) {
-            this.endings_weights[effect] += choice.effects[effect];
+        for (let ending_type in choice.weights_deviation) {
+            this.endings_weights[ending_type] += choice.weights_deviation[ending_type];
         }
 
-        if (choice.is_final === true) {
-            this.set_ending(this.decide_ending());
+        if (choice.affects) { 
+            choice.affects(this.events)
+        };
+
+        if (choice.is_ending == true) {
+            this.display_ending(this.decide_ending());
         } else {
-            this.stage_id += 1;
-            this.set_stage(this.stage_id);
+            this.current_stage = this.get_stage(choice.next_stage_id);            
+            this.display_stage(this.current_stage, this.current_choices);
         }
     }
 
-    set_ending(final_id) {
-        this.clear_log();
-        this.print_log(`~ ${this.endings.get(final_id).description}`);
-        this.set_image(this.final_images.get(final_id));
-    }
-
-    decide_ending() {
-        let sorted_weights = Object.entries(this.endings_weights).sort((a, b) => b[1] - a[1]);
-        return sorted_weights[0][0];
-    }
-
-    print_legend(stage_id) {
-        let legend = this.stages.get(stage_id).description;
+    print_legend(legend) {
         this.print_log(`* ${legend} \n`);
     }
 
-    print_choices(stage_id) {
-        let choices = this.stages.get(stage_id).choices;
+    print_choices(choices) {
         for (let i = 0; i < choices.length; i++) {
             this.print_log(`${i + 1}. ${choices[i].text}`);
         }
         this.print_log("");
     }
 
-    set_stage(stage_id) {
+    display_stage(stage, choices) {
         this.clear_log();
-        this.print_legend(stage_id);
-        this.print_choices(stage_id);
-        this.set_image(this.stage_images.get(stage_id));
+        this.print_legend(stage.description);
+        this.print_choices(choices);
+        this.set_image(stage.image);
+    }
+
+    decide_ending() {
+        console.log(this.endings_weights)
+        let sorted_weights = Object.entries(this.endings_weights).sort((a, b) => b[1] - a[1]);
+
+        let ending_id = sorted_weights[0][0];
+
+        if (ending_id == "bad") {
+            ending_id = this.events.abandoned ? "bad_abandoned" : "bad_monster";
+        }
+
+        if (ending_id == "good") {
+            ending_id =
+                this.events.pyrite_found ? "good_pyrite" :
+                    this.events.trading ? "good_trading" :
+                        "neutral";
+        }
+        
+        console.log(ending_id)
+
+        return ending_id;
+    }
+
+    display_ending(ending_id) {
+        this.clear_log();
+        this.print_log(`~ ${this.endings.get(ending_id).description}`);
+        this.set_image(this.endings.get(ending_id).image);
     }
 
     print_error(message) {
@@ -362,6 +457,7 @@ window.onload = () => {
 
     /* --------------------------------- TASK-GAME --------------------------------- */
 
-    new Game();
-
+    setTimeout(() => {
+        new Game();
+    }, 1000)
 };
