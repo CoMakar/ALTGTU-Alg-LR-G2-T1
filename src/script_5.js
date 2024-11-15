@@ -80,7 +80,7 @@ class Game extends Task {
                 {
                     text: "Сосредоточиться на кузнечном деле и изготовлении оружия.",
                     weights_deviation: { bad: -1, neutral: -1, good: +1 },
-                    affects(events) { events.heavy_weapons = true },
+                    affects(events) { events.heavy_weapons = true; },
                     next_stage_id: 5
                 },
                 {
@@ -103,13 +103,13 @@ class Game extends Task {
                 {
                     text: "Продавать только излишки, сохраняя запасы на случай нужды.",
                     weights_deviation: { good: +1, neutral: +1, bad: -1 },
-                    affects(events) { events.trading = true },
+                    affects(events) { events.trading = true; },
                     next_stage_id: 6
                 },
                 {
                     text: "Наладить постоянный обмен ресурсами с соседними племенами.",
                     weights_deviation: { neutral: +1, bad: +1 },
-                    affects(events) { events.trading = true },
+                    affects(events) { events.trading = true; },
                     next_stage_id: 6
                 },
                 {
@@ -149,19 +149,19 @@ class Game extends Task {
                 {
                     text: "Вернуться с новостью, чтобы старейшины лучше обдумали решение.",
                     weights_deviation: { good: +2, neutral: -1, bad: +1 },
-                    affects(events) { events.pyrite_found = true },
+                    affects(events) { events.pyrite_found = true; },
                     next_stage_id: 8
                 },
                 {
                     text: "Немедленно начать добычу колчедана и организовать его переработку.",
                     weights_deviation: { good: +1, neutral: -1, bad: +1 },
-                    affects(events) { events.pyrite_found = true },
+                    affects(events) { events.pyrite_found = true; },
                     next_stage_id: 8
                 },
                 {
                     text: "Добывать руду, но скрывать это от остальных до подтверждения богатства залежей.",
                     weights_deviation: { good: +1, neutral: -1, bad: +3 },
-                    affects(events) { events.pyrite_found = true },
+                    affects(events) { events.pyrite_found = true; },
                     next_stage_id: 8
                 },
                 {
@@ -183,7 +183,7 @@ class Game extends Task {
                 },
                 {
                     text: "Усилить патрулирование и подготовить оружие.",
-                    condition(events) { return events.heavy_weapons },
+                    condition(events) { return events.heavy_weapons; },
                     weights_deviation: { good: +1, neutral: -1, bad: -1 },
                     next_stage_id: 9
                 },
@@ -201,7 +201,7 @@ class Game extends Task {
             choices: [
                 {
                     text: "Атаковать порождение мощным вооружением.",
-                    condition(events) { return events.heavy_weapons },
+                    condition(events) { return events.heavy_weapons; },
                     weights_deviation: { good: +1, neutral: +1, bad: -2 },
                     next_stage_id: 10
                 },
@@ -224,27 +224,29 @@ class Game extends Task {
             choices: [
                 {
                     text: "Продолжать добычу колчедана, рискуя столкновением с забытым порождением.",
-                    condition(events) { return events.heavy_weapons && events.pyrite_found },
+                    condition(events) { return events.heavy_weapons && events.pyrite_found; },
                     weights_deviation: { good: +2, neutral: -2, bad: +3 },
                     is_ending: true
                 },
                 {
-                    text: "Закрыть туннели и заняться обычной жизнью, избегая рискованных предприятий.",
-                    condition(events) { return events.pyrite_found },
+                    text: "Закрыть шахты по добыче колчедана и заняться обычной жизнью, избегая рискованных предприятий.",
+                    condition(events) { return events.pyrite_found; },
                     weights_deviation: { good: -5, neutral: +3, bad: -5 },
+                    affects(events) { events.pyrite_found = false; },
                     is_ending: true
                 },
                 {
                     text: "Прекратить добычу и перейти к укреплению обороны, полагаясь на торги.",
-                    condition(events) { return events.trading && events.pyrite_found },
+                    condition(events) { return events.trading && events.pyrite_found; },
                     weights_deviation: { good: +4, neutral: -1, bad: -3 },
+                    affects(events) { events.pyrite_found = false; },
                     is_ending: true
                 },
                 {
                     text: "Покинуть крепость с остатками экспедиции и отправиться на поиски лучшей жизни.",
-                    condition(events) { return !events.pyrite_found && !events.trading},
+                    condition(events) { return !events.pyrite_found && !events.trading; },
                     weights_deviation: { good: -999, neutral: -999, bad: +999 },
-                    affects(events) { events.abandoned = true },
+                    affects(events) { events.abandoned = true; },
                     is_ending: true
                 },
                 {
@@ -253,8 +255,12 @@ class Game extends Task {
                     is_ending: true
                 },
                 {
-                    text: "Снарядить всех дворфов подручными средствами, заблокировать крепость, лучше крепость падет, но мы не можем позволить неведомой твари вырваться!",
+                    text: "Снарядить всех дворфов подручными средствами, заблокировать крепость, пусть крепость падет, но мы не можем позволить неведомой твари вырваться!",
                     weights_deviation: { good: -5, neutral: -8, bad: +5 },
+                    affects(events) {
+                        events.abandoned = true;
+                        events.trading = false;
+                    },
                     is_ending: true
                 }
             ]
@@ -307,12 +313,11 @@ class Game extends Task {
 
         this.command_input.onkeydown = this.submit_btn.onclick = (event) => this.handle_command_input(event);
 
-        
         this.current_stage = this.get_stage(1);
-        this.display_stage(this.current_stage, this.current_choices);
+        this.display_stage(this.current_stage, this.current_available_choices);
     }
 
-    get current_choices() {
+    get current_available_choices() {
         let choices = this.current_stage.choices.filter(choice => {
             return choice.condition === undefined ? true : choice.condition(this.events)
         });
@@ -339,7 +344,7 @@ class Game extends Task {
 
         if (isNaN(choice_id)) {
             this.print_error("Введите вариант ответа.");
-            this.print_choices(this.current_choices);
+            this.print_choices(this.current_available_choices);
             return;
         }
 
@@ -370,7 +375,7 @@ class Game extends Task {
             this.disable_interactions();
         } else {
             this.current_stage = this.get_stage(choice.next_stage_id);            
-            this.display_stage(this.current_stage, this.current_choices);
+            this.display_stage(this.current_stage, this.current_available_choices);
         }
     }
 
