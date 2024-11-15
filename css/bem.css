@@ -311,6 +311,7 @@ body {
 
 .img-wrapper__img {
     image-rendering: pixelated;
+    object-fit: contain;
 }
 
 .img-wrapper__img_game-stage {
@@ -325,6 +326,10 @@ body {
     .main {
         grid-template-columns: 1fr;
         max-width: 600px;
+    }
+
+    .text-area_game-log {
+        font-size: 8pt;
     }
 }
 
@@ -356,5 +361,13 @@ body {
 
     .labeled-input__label {
         word-break: break-all;
+    }
+
+    .text-area_game-log {
+        font-size: 6pt;
+    }
+
+    .img-wrapper__img_game-stage {
+        height: 250px;
     }
 }
