@@ -34,11 +34,6 @@ class Game extends Task {
             description: "В крепости открывают несколько небольших шахт для добычи камня и руды. Также требуется еда и древесина и больше металлов.",
             choices: [
                 {
-                    text: "Открыть шахту поближе к реке, чтобы добывать руду.",
-                    weights_deviation: { bad: +1, good: +2 },
-                    next_stage_id: 3
-                },
-                {
                     text: "Охотиться на местную дичь, добывая еду для зимы.",
                     weights_deviation: { neutral: +3, good: +1 },
                     next_stage_id: 3
@@ -46,6 +41,11 @@ class Game extends Task {
                 {
                     text: "Начать собирать толстошлемник для приготовления вина.",
                     weights_deviation: { neutral: +5, bad: +2 },
+                    next_stage_id: 3
+                },
+                {
+                    text: "Открыть шахту поближе к реке, чтобы добывать руду.",
+                    weights_deviation: { bad: +1, good: +2 },
                     next_stage_id: 3
                 }
             ]
@@ -147,14 +147,14 @@ class Game extends Task {
             description: "При исследовании туннеля дворфы находят огромные залежи блестящей породы. Это колчедан, содержащий медь и железо.",
             choices: [
                 {
-                    text: "Начать добычу колчедана и организовать его переработку.",
-                    weights_deviation: { good: +1, neutral: -1, bad: +1 },
+                    text: "Вернуться с новостью, чтобы старейшины лучше обдумали решение.",
+                    weights_deviation: { good: +2, neutral: -1, bad: +1 },
                     affects(events) { events.pyrite_found = true },
                     next_stage_id: 8
                 },
                 {
-                    text: "Вернуться с новостью, чтобы старейшины лучше обдумали решение.",
-                    weights_deviation: { good: +2, neutral: -1, bad: +1 },
+                    text: "Немедленно начать добычу колчедана и организовать его переработку.",
+                    weights_deviation: { good: +1, neutral: -1, bad: +1 },
                     affects(events) { events.pyrite_found = true },
                     next_stage_id: 8
                 },
@@ -166,7 +166,7 @@ class Game extends Task {
                 },
                 {
                     text: "Проигнорировать найденную жилу и продолжить мирскую деятельность",
-                    weights_deviation: { good: -1, neutral: +1, bad: +1 },
+                    weights_deviation: { good: -1, neutral: +1, bad: -1 },
                     next_stage_id: 8
                 }
             ]
@@ -177,14 +177,14 @@ class Game extends Task {
             description: "По крепости начинают ходить слухи о странных звуках и тенях в шахтах.",
             choices: [
                 {
-                    text: "Усилить патрулирование и подготовить оружие.",
-                    condition(events) { return events.heavy_weapons },
-                    weights_deviation: { good: +1, neutral: -1, bad: -1 },
+                    text: "Игнорировать слухи, успокоив дворфов.",
+                    weights_deviation: { good: -1, bad: +1 },
                     next_stage_id: 9
                 },
                 {
-                    text: "Игнорировать слухи, успокоив дворфов.",
-                    weights_deviation: { good: -1, bad: +1 },
+                    text: "Усилить патрулирование и подготовить оружие.",
+                    condition(events) { return events.heavy_weapons },
+                    weights_deviation: { good: +1, neutral: -1, bad: -1 },
                     next_stage_id: 9
                 },
                 {
@@ -362,11 +362,12 @@ class Game extends Task {
         }
 
         if (choice.affects) { 
-            choice.affects(this.events)
-        };
+            choice.affects(this.events);
+        }
 
         if (choice.is_ending == true) {
             this.display_ending(this.decide_ending());
+            this.disable_interactions();
         } else {
             this.current_stage = this.get_stage(choice.next_stage_id);            
             this.display_stage(this.current_stage, this.current_choices);
@@ -434,6 +435,11 @@ class Game extends Task {
 
     scroll_log_to_bottom() {
         this.log_display.scrollTop = this.log_display.scrollHeight;
+    }
+
+    disable_interactions() {
+        this.command_input.disabled = true;
+        this.submit_btn.disabled = true;
     }
 
     set_image(path) {
