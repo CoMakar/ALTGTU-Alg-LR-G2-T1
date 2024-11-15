@@ -354,7 +354,7 @@ class Game extends Task {
     }
 
     handle_choice(choice_id) {
-        let choice = this.current_stage.choices[choice_id];
+        let choice = this.current_available_choices[choice_id];
 
         if (choice === undefined) {
             this.print_error("Такого варианта ответа нет.");
