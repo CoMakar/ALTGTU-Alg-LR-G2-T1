@@ -408,10 +408,16 @@ class Game extends Task {
         }
 
         if (ending_id == "good") {
-            ending_id =
-                this.events.pyrite_found ? "good_pyrite" :
-                    this.events.trading ? "good_trading" :
-                        "neutral";
+            switch (true) {
+                case this.events.pyrite_found:
+                    ending_id = "good_pyrite";
+                    break;
+                case this.events.trading:
+                    ending_id = "good_trading";
+                    break;
+                default:
+                    ending_id = "neutral";
+            }
         }
         
         console.log(ending_id)
