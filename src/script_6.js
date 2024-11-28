@@ -118,8 +118,6 @@ class Task_2 extends Task {
                 return false;
             }
 
-            console.log(row_data);
-
             if (row_length === null) {
                 row_length = row_data.length;
             }
