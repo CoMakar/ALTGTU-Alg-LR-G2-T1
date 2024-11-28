@@ -4,21 +4,21 @@
 }
 
 :root {
-    --c64-bg: #50459b;
-    --c64-fg: #887ecb;
-    --c64-cyan: #6abfc6;
-    --c64-purple: #a057a3;
-    --c64-orange: #a1683c;
-    --c64-d-red: #9f4e44;
-    --c64-l-red: #cb7e75;
-    --c64-d-yellow: #6d5412;
-    --c64-l-yellow: #c9d487;
-    --c64-d-green: #5cab5e;
-    --c64-l-green: #9ae29b;
-    --c64-black: #06060d;
-    --c64-gray-1: #626262;
-    --c64-gray-2: #898989;
-    --c64-gray-3: #adadad;
+    --c64-bg: #40318d;
+    --c64-fg: #7869c4;
+    --c64-cyan: #67b6bd;
+    --c64-purple: #8b3f96;
+    --c64-orange: #8b5429;
+    --c64-d-red: #883932;
+    --c64-l-red: #b86962;
+    --c64-d-yellow: #574200;
+    --c64-l-yellow: #bfce72;
+    --c64-d-green: #55a049;
+    --c64-l-green: #94e089;
+    --c64-black: #000000;
+    --c64-gray-1: #505050;
+    --c64-gray-2: #787878;
+    --c64-gray-3: #9f9f9f;
     --c64-white: #ffffff;
 }
 
@@ -63,6 +63,7 @@ nav {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     align-items: center;
     justify-items: center;
+    gap: 8px;
 }
 
 nav a::before {
@@ -194,7 +195,8 @@ textarea:focus::placeholder {
 textarea:disabled {
     color: var(--c64-gray-1);
     background-color: var(--c64-black);
-    cursor: default;
+    cursor: not-allowed;
+    opacity: 50%;
 }
 
 button {

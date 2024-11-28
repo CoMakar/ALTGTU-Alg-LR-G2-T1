@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Function, Utl, Commodore64">
+    <meta name="description" content="Some circles!">
+    <meta name="author" content="QMakar">
+    <title>ALTGTU - Alg - Lab 6</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/bem.css">
+    <script src="../src/script_6.js" type="module" async></script>
+</head>
+
+<body>
+    <header class="header">
+        <h1 class="header__name">Лабораторная работа #5</h1>
+
+        <nav class="nav">
+            <a class="nav__item" href="../pages/lab_2.html">Работа 2</a>
+            <a class="nav__item" href="../pages/lab_3.html">Работа 3</a>
+            <a class="nav__item" href="../pages/lab_4.html">Работа 4</a>
+            <a class="nav__item" href="../pages/lab_5.html">Работа 5</a>
+            <a class="nav__item nav__item_current" href="">Работа 6</a>
+        </nav>
+
+        <hr class="h-ruler">
+    </header>
+
+    <main class="main">
+        <div class="main__task">
+            <h2 class="task__name">Задание 1</h2>
+
+            <div class="img-wrapper img-wrapper_centered">
+                <img class="img-wrapper__img img-wrapper__img_height-200" id="game-current-stage-img"
+                    src="../assets/images/circle.png" alt="Game stage">
+            </div>
+
+            <div class="interaction-form">
+                <p class="labeled-input labeled-input__1-to-1">
+                    <label for="t1-r1-input" class="labeled-input__label">Радиус (1):</label>
+                    <input class="labeled-input__text-input" type="text" id="t1-r1-input" autocomplete="off"
+                        placeholder="0" value="1">
+                </p>
+
+                <p class="labeled-input labeled-input__1-to-1">
+                    <label for="t1-r2-input" class="labeled-input__label">Радиус (2):</label>
+                    <input class="labeled-input__text-input" type="text" id="t1-r2-input" autocomplete="off"
+                        placeholder="0" value="2">
+                </p>
+            </div>
+
+            <p class="answer">
+                <span>Ответ:</span>
+                <span id="t1-answer-display"></span>
+            </p>
+
+            <p id="t1-error-display" class="hidden error">
+
+            </p>
+        </div>
+
+        <div class="main__task">
+            <h2 class="task__name">Задание 2</h2>
+
+            <div class="parameters parameters_dimmed">
+                <p>
+                    <span>Строк:</span>
+                    <span id="t2-rows-counter-display"></span>
+                </p>
+                <p>
+                    <span>Столбцов:</span>
+                    <span id="t2-columns-counter-display"></span>
+                </p>
+            </div>
+
+            <div class="interaction-form">
+                <textarea class="text-area" id="t2-matrix-input" spellcheck="false" autocomplete="off" placeholder="1 2 3"></textarea>
+            </div>
+
+            <p class="answer">
+                Ответ:
+            </p>
+
+            <textarea class="text-area text-area_answer" id="t2-answer-display" readonly></textarea>
+
+            <p id="t2-error-display" class="hidden error">
+
+            </p>
+        </div>
+    </main>
+
+    <p id="blinker" class="blinker">█</p>
+
+    <footer class="footer">
+        <p class="footer__copyright">
+            (c) QMakar 2024
+        </p>
+    </footer>
+</body>
+
+</html>
