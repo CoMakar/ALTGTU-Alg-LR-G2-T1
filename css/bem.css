@@ -274,6 +274,11 @@ body {
     background-color: var(--c64-d-yellow);
 }
 
+.text-area_answer:focus {
+    color: var(--c64-l-yellow);
+    opacity: 100%;
+}
+
 .interaction-form * {
     margin-top: 2px;
     margin-bottom: 2px;
