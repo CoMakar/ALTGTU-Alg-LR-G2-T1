@@ -1,8 +1,8 @@
 "use strict";
 
-const PRODUCT_LIMIT = 50
+const PRODUCT_LIMIT = 50;
 const PRODUCT_API_ALL = `https://dummyjson.com/products?limit=${PRODUCT_LIMIT}`;
-const PRODUCT_API_SEARCH = "https://dummyjson.com/products/search?q={query}"
+const PRODUCT_API_SEARCH = "https://dummyjson.com/products/search?q={query}";
 
 function cloneTemplate(template) {
     return template.content.cloneNode(true);
@@ -56,19 +56,18 @@ function postInitProducts(product) {
     product.onclick = () => {
         product.scrollIntoView({ block: "start", behavior: "smooth" });
         let reviews = product.querySelector("[data-reviews]");
-        
+
         if (reviews.classList.contains("hidden")) {
             reviews.classList.remove("hidden");
         } else {
             setTimeout(() => {
-                reviews.classList.add("hidden");       
-            }, 200)
+                reviews.classList.add("hidden");
+            }, 200);
         }
-
-    }
+    };
 
     let thumbnail = product.querySelector("[data-thumbnail]");
-    setImageSrc(thumbnail, thumbnail.dataset.thumbnailUrl)
+    setImageSrc(thumbnail, thumbnail.dataset.thumbnailUrl);
     delete thumbnail.dataset.thumbnailUrl;
 }
 
@@ -77,27 +76,26 @@ function pasteNode(container, node) {
 }
 
 async function fetchProducts(endpoint) {
-    let response = await fetch(endpoint)
+    let response = await fetch(endpoint);
 
     if (!response.ok) {
-        throw new Error(`Fetching products failed: ${response.statusText}`)
+        throw new Error(`Fetching products failed: ${response.statusText}`);
     }
 
-    let data = await response.json()
+    let data = await response.json();
 
     if (!data.products) {
-        throw new Error("No products fetched")
+        throw new Error("No products fetched");
     }
-    
+
     return data.products;
 }
-
 
 window.onload = async () => {
     const PRODUCT_TEMPLATE = document.getElementById("product-template");
     const REVIEW_TEMPLATE = document.getElementById("review-template");
     const PRODUCT_CONTAINER = document.getElementById("product-list");
-    
+
     const SEARCH_FILED = document.getElementById("search-field");
     const SEARCH_BTN = document.getElementById("search-btn");
 
@@ -105,34 +103,32 @@ window.onload = async () => {
     const ERROR = document.getElementById("error");
 
     async function loadProductsViaAPI(endpoint) {
-        LOADING.classList.remove("hidden")
+        LOADING.classList.remove("hidden");
         ERROR.classList.add("hidden");
-        PRODUCT_CONTAINER.innerHTML = ""
-    
+        PRODUCT_CONTAINER.innerHTML = "";
+
         try {
             let products_data = await fetchProducts(endpoint);
 
             if (products_data.length == 0) {
                 throw new Error("No products found");
             }
-    
+
             for (let product of products_data) {
                 let clone = cloneTemplate(PRODUCT_TEMPLATE);
                 fillProductData(clone, product, REVIEW_TEMPLATE);
                 pasteNode(PRODUCT_CONTAINER, clone);
             }
-    
+
             PRODUCT_CONTAINER.classList.remove("hidden");
-    
-            Array.from(PRODUCT_CONTAINER.children).map(postInitProducts)   
+
+            Array.from(PRODUCT_CONTAINER.children).map(postInitProducts);
         } catch (error) {
             ERROR.classList.remove("hidden");
             console.error(`Error during fetching data: ${error}`);
+        } finally {
+            LOADING.classList.add("hidden");
         }
-        finally {
-            LOADING.classList.add("hidden")
-        }
-        
     }
 
     console.info("Window loaded");
@@ -151,13 +147,14 @@ window.onload = async () => {
         let query = encodeURIComponent(SEARCH_FILED.value.trim());
 
         if (query == "") {
-            loadProductsViaAPI(PRODUCT_API_ALL)
-            return
+            loadProductsViaAPI(PRODUCT_API_ALL);
+            return;
         }
-        
-        loadProductsViaAPI(PRODUCT_API_SEARCH.replace("{query}", SEARCH_FILED.value.trim()))
-    }
 
-    loadProductsViaAPI(PRODUCT_API_ALL)
+        loadProductsViaAPI(
+            PRODUCT_API_SEARCH.replace("{query}", SEARCH_FILED.value.trim())
+        );
+    };
 
+    loadProductsViaAPI(PRODUCT_API_ALL);
 };
