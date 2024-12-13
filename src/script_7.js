@@ -54,12 +54,13 @@ function fillReviewData(node, review) {
 
 function postInitProducts(product) {
     product.onclick = () => {
-        product.scrollIntoView({ block: "start", behavior: "smooth" });
         let reviews = product.querySelector("[data-reviews]");
 
         if (reviews.classList.contains("hidden")) {
             reviews.classList.remove("hidden");
+            product.scrollIntoView({ block: "end", behavior: "smooth" });
         } else {
+            product.scrollIntoView({ block: "start", behavior: "smooth" });
             setTimeout(() => {
                 reviews.classList.add("hidden");
             }, 200);
