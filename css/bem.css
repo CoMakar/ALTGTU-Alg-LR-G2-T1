@@ -3,6 +3,24 @@
     src: url(../assets/fonts/Press\ Start\ 2P\ Regular.ttf);
 }
 
+@keyframes loading {
+    0% {
+        content: "\00a0\00a0\00a0";
+    }
+
+    25% {
+        content: ".\00a0\00a0";
+    }
+
+    50% {
+        content: "..\00a0";
+    }
+
+    75% {
+        content: "...";
+    }
+}
+
 :root {
     --c64-bg: #40318d;
     --c64-fg: #7869c4;
@@ -57,10 +75,6 @@ body {
     justify-self: center;
     width: 100%;
     max-width: 1200px;
-}
-
-.main__task {
-    overflow: hidden;
 }
 
 .main__task_span-col-2 {
@@ -120,18 +134,7 @@ body {
 .h-ruler {
     border: none;
     border-top: 4px solid var(--c64-fg);
-    overflow: visible;
-    text-align: center;
     height: 8px;
-}
-
-.h-ruler::after {
-    background-color: var(--c64-bg);
-    color: var(--c64-fg);
-    content: "#";
-    padding: 0 8px;
-    position: relative;
-    top: -12px;
 }
 
 .header__name {
@@ -163,16 +166,20 @@ body {
     column-gap: 16px;
 }
 
-.labeled-input__1-to-1 {
+.labeled-input_1-to-1 {
     grid-template-columns: 1fr 1fr;
 }
 
-.labeled-input__2-to-3 {
+.labeled-input_2-to-3 {
     grid-template-columns: 2fr 3fr;
 }
 
-.labeled-input__3-to-2 {
+.labeled-input_3-to-2 {
     grid-template-columns: 3fr 2fr;
+}
+
+.labeled-input_auto {
+    grid-template-columns: auto 1fr;
 }
 
 .labeled-input_vertical {
@@ -221,8 +228,10 @@ body {
 .text-area {
     resize: none;
     color: var(--c64-fg);
-    background-color: var(--c64-black);
-    opacity: 30%;
+    background-color: var(--c64-bg);
+    background-image: url(../assets/images/pattern/dither_1.png);
+    background-blend-mode: multiply;
+    image-rendering: pixelated;
     outline: none;
     padding: 4px;
     margin: 0;
@@ -233,7 +242,6 @@ body {
 
 .text-area:focus {
     color: var(--c64-cyan);
-    opacity: 66%;
 }
 
 .text-area::placeholder {
@@ -259,24 +267,20 @@ body {
     height: 200px;
     color: var(--c64-white);
     background-color: var(--c64-black);
-    opacity: 100%;
 }
 
 .text-area_game-log:focus {
     color: var(--c64-white);
-    opacity: 100%;
 }
 
 .text-area_answer {
     color: var(--c64-l-yellow);
-    opacity: 100%;
-    border:  var(--c64-l-yellow) 4px solid;
+    border: var(--c64-l-yellow) 4px solid;
     background-color: var(--c64-d-yellow);
 }
 
 .text-area_answer:focus {
     color: var(--c64-l-yellow);
-    opacity: 100%;
 }
 
 .interaction-form * {
@@ -319,6 +323,19 @@ body {
     width: 100%;
 }
 
+.error_inverted {
+    color: var(--c64-d-red);
+    background-color: var(--c64-black);
+}
+
+.error_with-border {
+    border: 4px solid var(--c64-black);
+}
+
+.error_inverted.error_with-border {
+    border: 4px solid var(--c64-d-red);
+}
+
 .parameters {
     margin: 16px 0 16px 0;
 }
@@ -352,13 +369,139 @@ body {
     background-color: var(--c64-black);
 }
 
-.img-wrapper__img {
+.img-effect {
+    position: relative;
+    display: inline-block;
+}
+
+.img-effect_dithering::after {
+    content: '';
+    position: absolute;
+    isolation: isolate;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(../assets/images/pattern/bayer_4.png);
+    mix-blend-mode: overlay;
+    pointer-events: none;
+}
+
+.img {
     image-rendering: pixelated;
     object-fit: contain;
 }
 
-.img-wrapper__img_game-stage {
+.img_game-stage {
     height: 400px;
+}
+
+.product-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px 32px;
+    justify-content: center;
+}
+
+.product {
+    border: var(--c64-fg) 4px solid;
+    background-color: var(--c64-bg);
+    background-image: url(../assets/images/pattern/diagonal.png);
+    background-blend-mode: multiply;
+    image-rendering: pixelated;
+    padding: 8px;
+    font-size: 1rem;
+    transition: transform 0.3s cubic-bezier(0.23, -0.64, 0, 1.58);
+    cursor: pointer;
+    height: fit-content;
+}
+
+.product__title {
+    color: var(--c64-l-yellow);
+}
+
+.product__title::before {
+    content: "@";
+}
+
+.product__stats {
+    font-size: 0.75rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: end;
+}
+
+.product__description {
+    font-size: 0.5rem;
+}
+
+.product__description::before {
+    content: "-";
+}
+
+.img_product-thumbnail {
+    height: 320px;
+    filter: drop-shadow(0 0 4px var(--c64-white)) contrast(150%);
+}
+
+.img-effect_product {
+    background-image: linear-gradient(var(--c64-black), var(--c64-bg));
+    border: var(--c64-fg) 4px solid;
+}
+
+
+.product:hover {
+    border-color: var(--c64-white);
+    background-color: var(--c64-l-yellow);
+    background-image: none;
+    color: var(--c64-white);
+    transform: translateY(-32px);
+
+    .product__title {
+        color: var(--c64-white);
+    }
+
+    .h-ruler {
+        border-color: var(--c64-white);
+    }
+
+    .img_product-thumbnail {
+        filter: drop-shadow(0 0 16px var(--c64-cyan)) contrast(200%);
+    }
+
+    .img-effect_product {
+        background-image: linear-gradient(var(--c64-black), var(--c64-purple));
+        border-color: var(--c64-white);
+    }
+}
+
+.reviews {
+    display: flex;
+    row-gap: 32px;
+    flex-direction: column;
+}
+
+.reviews__review {
+    border: var(--c64-l-yellow) 2px solid;
+    padding: 4px;
+    font-size: 0.75rem;
+    background-color: var(--c64-d-yellow);
+    color: var(--c64-l-yellow);
+}
+
+.text-area_review-comment {
+    background-color: var(--c64-d-yellow);
+    color: var(--c64-l-yellow);
+    background-image: url(/assets/images/pattern/dither_2.png);
+}
+
+.loading {
+    text-align: center;
+}
+
+.loading__animation::after {
+    content: "\00a0\00a0\00a0";
+    animation: loading .75s linear infinite;
 }
 
 @media (max-width: 1200px) {
@@ -374,6 +517,15 @@ body {
     .text-area_game-log {
         font-size: 8pt;
     }
+
+    .product-list {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .product__stats {
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
 }
 
 @media (max-width: 800px) {
@@ -384,10 +536,6 @@ body {
 
     .header {
         word-break: break-all;
-    }
-
-    .h-ruler::after {
-        top: -9px;
     }
 
     .header__name::before {
@@ -412,5 +560,13 @@ body {
 
     .img-wrapper__img_game-stage {
         height: 250px;
+    }
+
+    .product-list {
+        grid-template-columns: 1fr;
+    }
+
+    .img_product-thumbnail {
+        height: 256px;
     }
 }

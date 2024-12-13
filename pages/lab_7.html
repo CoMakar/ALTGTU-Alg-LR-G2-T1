@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="API, Web, Commodore64">
+    <meta name="description" content="API, API, please, more API!">
+    <meta name="author" content="QMakar">
+    <title>ALTGTU - Alg - Lab 7</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/bem.css">
+    <script src="../src/script_7.js" type="module" async></script>
+</head>
+
+<body>
+    <template id="review-template">
+        <div class="reviews__review">
+            <p class="review__author" data-author>
+
+            </p>
+
+            <textarea class="text-area text-area_review-comment" spellcheck="false" autocomplete="off" readonly
+                data-comment></textarea>
+
+            <p class="review__rating">
+                <span>(</span>
+                <span data-rating></span>
+                <span>)</span>
+            </p>
+        </div>
+    </template>
+
+    <template id="product-template">
+        <div class="product">
+            <p class="product__title">
+                <span data-brand> </span>
+                <span> - </span>
+                <span data-title> </span>
+            </p>
+
+            <hr class="h-ruler">
+
+            <div class="product__stats">
+                <p class="stats__price">
+                    <span>Цена</span>
+                    <span data-price></span>
+                    <span>дол.</span>
+                </p>
+
+                <p class="product__rating">
+                    <span>(</span>
+                    <span data-rating></span>
+                    <span>)</span>
+                </p>
+            </div>
+
+            <hr class="h-ruler">
+
+            <div class="img-wrapper img-wrapper_centered">
+                <div class="img-effect img-effect_dithering img-effect_product">
+                    <img class="img img_product-thumbnail" src="../assets/images/placeholder.png" data-thumbnail>
+                </div>
+            </div>
+
+            <p class="product__description" data-description>
+
+            </p>
+
+            <hr class="h-ruler">
+
+            <div class="reviews hidden" data-reviews>
+
+            </div>
+        </div>
+    </template>
+
+    <header class="header">
+        <h1 class="header__name">Лабораторная работа #5</h1>
+
+        <nav class="nav">
+            <a class="nav__item" href="../pages/lab_2.html">Работа 2</a>
+            <a class="nav__item" href="../pages/lab_3.html">Работа 3</a>
+            <a class="nav__item" href="../pages/lab_4.html">Работа 4</a>
+            <a class="nav__item" href="../pages/lab_5.html">Работа 5</a>
+            <a class="nav__item" href="../pages/lab_6.html">Работа 6</a>
+            <a class="nav__item nav__item_current" href="">Работа 7</a>
+        </nav>
+
+        <hr class="h-ruler">
+    </header>
+
+    <main class="main">
+        <div class="main__task main__task_span-col-2">
+            <h2 class="task__name">Работа с API</h2>
+
+            <div class="interaction-form">
+                <p class="labeled-input labeled-input_auto">
+                    <label for="search-field" class="labeled-input__label">Поиск:</label>
+                    <input class="labeled-input__text-input" type="text" id="search-field" autocomplete="off">
+                </p>
+
+                <button id="search-btn" class="submit-btn">Найти</button>
+            </div>
+
+            <div class="product-list hidden" id="product-list">
+
+            </div>
+
+            <div class="loading" id="loading">
+                <span>Загрузка</span>
+                <span class="loading__animation"></span>
+            </div>
+
+            <div class="error error_inverted error_with-border hidden" id="error">
+                Товары не найдены
+            </div>
+
+        </div>
+    </main>
+
+    <p id="blinker" class="blinker">█</p>
+
+    <footer class="footer">
+        <p class="footer__copyright">
+            (c) QMakar 2024
+        </p>
+    </footer>
+</body>
+
+</html>

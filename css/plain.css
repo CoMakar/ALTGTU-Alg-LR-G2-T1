@@ -258,10 +258,6 @@ button:disabled {
     max-width: 1200px;
 }
 
-.grid-item {
-    overflow: hidden;
-}
-
 .labeled-input {
     display: grid;
     grid-template-columns: 1fr 2fr;
