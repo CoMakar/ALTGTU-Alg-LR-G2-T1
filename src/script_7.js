@@ -1,7 +1,7 @@
 "use strict";
 
-const PROUDCT_LIMIT = 50
-const PRODUCT_API_ALL = `https://dummyjson.com/products?limit=${PROUDCT_LIMIT}`;
+const PRODUCT_LIMIT = 50
+const PRODUCT_API_ALL = `https://dummyjson.com/products?limit=${PRODUCT_LIMIT}`;
 const PRODUCT_API_SEARCH = "https://dummyjson.com/products/search?q={query}"
 
 function cloneTemplate(template) {
