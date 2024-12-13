@@ -411,7 +411,6 @@ body {
     image-rendering: pixelated;
     padding: 8px;
     font-size: 1rem;
-    transition: transform 0.3s cubic-bezier(0.23, -0.64, 0, 1.58);
     cursor: pointer;
     height: fit-content;
 }
@@ -441,7 +440,9 @@ body {
 
 .img_product-thumbnail {
     height: 320px;
+    scale: 0.75;
     filter: drop-shadow(0 0 4px var(--c64-white)) contrast(150%);
+    transition: scale 0.3s cubic-bezier(0.23, -0.64, 0, 1.58);;
 }
 
 .img-effect_product {
@@ -455,7 +456,6 @@ body {
     background-color: var(--c64-l-yellow);
     background-image: none;
     color: var(--c64-white);
-    transform: translateY(-32px);
 
     .product__title {
         color: var(--c64-white);
@@ -472,6 +472,10 @@ body {
     .img-effect_product {
         background-image: linear-gradient(var(--c64-black), var(--c64-purple));
         border-color: var(--c64-white);
+    }
+
+    .img_product-thumbnail {
+        scale: 1;
     }
 }
 
