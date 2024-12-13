@@ -2,7 +2,7 @@
 
 import { Task, ElementType } from "./common.js";
 
-const IMAGE_PATH = "../assets/images"
+const IMAGE_PATH = "../assets/images/game"
 
 class Game extends Task {
     stages = new Map([
