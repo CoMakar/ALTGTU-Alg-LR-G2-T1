@@ -104,7 +104,7 @@ window.onload = async () => {
     const LOADING = document.getElementById("loading");
     const ERROR = document.getElementById("error");
 
-    async function Produtcs(endpoint) {
+    async function loadProductsViaAPI(endpoint) {
         LOADING.classList.remove("hidden")
         ERROR.classList.add("hidden");
         PRODUCT_CONTAINER.innerHTML = ""
@@ -143,22 +143,21 @@ window.onload = async () => {
         blinker.classList.toggle("invisible");
     }, 1000);
 
-    SEARCH_FILED.onchange = (event) => {
+    SEARCH_BTN.onclick = SEARCH_FILED.onkeydown = (event) => {
         if (event.type == "keydown" && event.key != "Enter") {
             return;
         }
 
         let query = encodeURIComponent(SEARCH_FILED.value.trim());
-        console.log(query);
 
         if (query == "") {
-            Produtcs(PRODUCT_API_ALL)
+            loadProductsViaAPI(PRODUCT_API_ALL)
             return
         }
         
-        Produtcs(PRODUCT_API_SEARCH.replace("{query}", SEARCH_FILED.value.trim()))
+        loadProductsViaAPI(PRODUCT_API_SEARCH.replace("{query}", SEARCH_FILED.value.trim()))
     }
 
-    Produtcs(PRODUCT_API_ALL)
+    loadProductsViaAPI(PRODUCT_API_ALL)
 
 };
